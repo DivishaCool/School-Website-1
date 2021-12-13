@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+* {box-sizing: border-box}
+body {font-family: Verdana, sans-serif; margin:0}
+.mySlides {display: none}
+img {vertical-align: middle;}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+  box-shadow: 10px 10px 5px grey;
+  
+}
+
+
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  background-color: #111;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+
+}
+
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+
+
+
+
+
+
+
+
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+
+body {
+  -webkit-user-select: none;
+     -moz-user-select: -moz-none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+    body, html {
+  height: 100%; 
+}
+
+body {
+
+  background-image: url("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgNCAcICA0HBwgHBwoHBwcHCA8ICQcKFREWFhURHxMYHSggGCYlJxUfITEhJSkrLi4uFx8zODMsNygtLisBCgoKDQ0NDg0NDisZFRkrKysrLTcrNysrKysrNysrKysrKysrKysrLSsrKysrKysrKysrKysrKysrKysrKysrK//AABEIALQBGAMBIgACEQEDEQH/xAAaAAEBAQEBAQEAAAAAAAAAAAACAQADBQYE/8QAGBABAQEBAQAAAAAAAAAAAAAAAAEREgL/xAAWAQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwD2uV5dp5blRznlZ5dOV5ECeV5dOVnkVz5Xl05bkHPlsdcbkHLGx05bkHPluXTGwHPlLHXEsByxL5db5TAcuW5dcTAcsTl1xMBysG+XblLAcbBsdrBsQcL5G+XewL5Bx5Sx15SwHHkb5dsGwHG+Qvl3vkL5B+e+VdL5YHvzyvLpyvKjlyvLry3IOfKzyfKyAHLcumNyAY2HjYDnjY64nIOeNjpiWAGJh41gOfKY64mA5WJY64lgOeJjpiYDnYNjrYmIONg2O1g2A42JfLrYNgOPKWO1g2A43yl8utiWA4WDfLtYNgOF8s6XywPoMbl0xsUDG5PFwHPFw8bADFwsbADGw8bADGw8bADEsdMbAcsbHSxMAMSw8bAc8THTEsBzsSx0xLAcrEsdMSwHOwbHWwbEHKwcdbEsBysGx1sSwHLBsdbBsBysGx1sGxFcbGOxhH0GNh42NA42HjYAY2HjYAY2HjYAY2HjYAY2HiYA4mHjYAYlh4mAGJh2JgBjYdiYAWDY6YmA52JY6YOA52DY6WJiDnYljpiWA5WDY62DYDngWOuDYK52DY6WDYiOVinYgr6DGw8bGkDFwsbAHGwsbAHEw8TAHGwsbADGwsYBxsJKA4mHiYAWJh4lgBjYWJgA2FiYgNg4eJYAWDY6YlgOeJYeDYAWDY6WJYDng2Olg2A52DY6WDYiudjFYoPoMbFxWkHEw8bBAxsLGwUcTCxgHGLEwBxMPEAWwsTAHGxWwBxLDxMAMSw7EsAEwsRAcSw8TACxLDo2AGJYdGwAqWHYmA52DY6WDYDnYlh2DYihYhWMI+gbFxWhGxcbAHGwsbADGLEAWwmwAxixMAWpIA4h4gDiYTYAYlh4lgBiWHiWAGITVAMSmgOeJh2JQDBsNLAc7EsOxMBzwbHSwbEAsYrGB72MuNjSIyqCITAOJh4mCihY2AKEgC2EgDiYWMA4hY2ADYSAOJhYmIBiGmAFiWHg0Bo07EoBYNNKAWDYeIAWDY6WDYgFiFYyq97EwsbFZFVYEZWBEwmAUwmwUcTCxAHEw0AcQsSwBYkQFCTAFsVlAsTDRALEp0bABLDsGgNg2HUsAKlhWIAWIdg2AFYrGB7uMSYqDjYWICMrAjKwJiE2ADFiAOJhpQBixBRxCxAFlxkBQkAUwkwBSklAKmGNgCJ2JQCwbDSwATCsQAqtWB72NisqC2EgCxICMqAyKwIisAsSAKElFFCRBEpIAoSAKUqgChIA4lKpQCpSqANg0xoDYFdKNRQZawj3mrM0jIzAyKwIjMDMzAjMwIzMCVGZFRFYQa1ZhURmBERgaozAlSswDUrMCUazAg1mRRrMwj//2Q==");
+  height: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+.slideshowimg{
+  height: 450px;
+  width:450px;
+}
+
+#open{
+  color:white;
+}
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@300&family=Open+Sans+Condensed:ital,wght@1,300&display=swap');
+h1{
+  text-align: center;
+  color:white;
+  font-family: 'Lobster', cursive;
+}
+
+</style>
+</head>
+<body>
+
+  
+    
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="home.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="#">Infrastructure</a>
+  <a href="#">Magazine</a>
+  <a href="#">Feedback</a>
+  <a href="#">Reviews</a>
+  <a href="#">Contact</a>
+
+</div>
+
+
+<span style="font-size:30px;cursor:pointer" onclick="openNav()" id="open">&#9776;</span>
+
+
+
+
+
+
+
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlides");
+  var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+  }
+  for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+  }
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active";
+}
+</script>
+   
+</body>
+</html> 
